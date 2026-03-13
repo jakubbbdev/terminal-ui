@@ -1,4 +1,4 @@
-# On push of a version tag (e.g. v1.0.0): build, create GitHub Release, upload JARs.
+# On push of a version tag (e.g. v1.0.0): build, publish to GitHub Packages, create Release, upload JARs.
 name: Release
 
 on:
@@ -8,10 +8,13 @@ on:
 
 permissions:
   contents: write
+  packages: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      RELEASE_VERSION: ${{ github.ref_name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,7 +26,12 @@ jobs:
           java-version: 21
           cache: gradle
 
-      - run: chmod +x gradlew && ./gradlew build --no-daemon
+      - name: Strip v from version
+        run: echo "RELEASE_VERSION=${RELEASE_VERSION#v}" >> $GITHUB_ENV
+
+      - run: chmod +x gradlew && ./gradlew build publish --no-daemon
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
