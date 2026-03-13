@@ -29,7 +29,8 @@ jobs:
       - name: Strip v from version
         run: echo "RELEASE_VERSION=${RELEASE_VERSION#v}" >> $GITHUB_ENV
 
-      - run: chmod +x gradlew && ./gradlew build publish --no-daemon
+      - name: Build and publish to GitHub Packages
+        run: chmod +x gradlew && ./gradlew build publish --no-daemon
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

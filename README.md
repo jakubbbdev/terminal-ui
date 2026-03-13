@@ -8,6 +8,50 @@ Java library for terminal UI: tables, rules, colors, prompts, menus, SelectList,
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/jakubbbdev/terminal-ui)
 
+## Install
+
+Published to [GitHub Packages](https://github.com/jakubbbdev/terminal-ui/packages). Replace `VERSION` with a [release](https://github.com/jakubbbdev/terminal-ui/releases) tag (e.g. `1.0.0`).
+
+**Gradle (Kotlin DSL):**
+
+```kotlin
+repositories {
+    mavenCentral()
+    maven { url = uri("https://maven.pkg.github.com/jakubbbdev/terminal-ui") }
+}
+dependencies {
+    implementation("dev.jakub.terminal:terminal-ui:VERSION")
+}
+```
+
+**Gradle (Groovy):**
+
+```groovy
+repositories {
+    mavenCentral()
+    maven { url "https://maven.pkg.github.com/jakubbbdev/terminal-ui" }
+}
+dependencies {
+    implementation "dev.jakub.terminal:terminal-ui:VERSION"
+}
+```
+
+**Maven:**
+
+```xml
+<repository>
+  <id>github</id>
+  <url>https://maven.pkg.github.com/jakubbbdev/terminal-ui</url>
+</repository>
+<dependency>
+  <groupId>dev.jakub.terminal</groupId>
+  <artifactId>terminal-ui</artifactId>
+  <version>VERSION</version>
+</dependency>
+```
+
+For public packages, read access usually works without credentials. If your tool asks for auth, use a [GitHub PAT](https://github.com/settings/tokens) with `read:packages` as username and the token as password.
+
 ## Requirements
 
 - **Java 21**
