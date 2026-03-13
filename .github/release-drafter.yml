@@ -1,5 +1,12 @@
-# Config for release-drafter: how to categorize PRs in draft release notes
+# Config for release-drafter v6: categorizes PRs in draft release notes
 # https://github.com/release-drafter/release-drafter
+
+template: |
+  ## What's Changed
+
+  $CHANGES
+
+  **Full Changelog**: https://github.com/jakubbbdev/terminal-ui/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION
 
 name-template: 'v$RESOLVED_VERSION'
 tag-template: 'v$RESOLVED_VERSION'
