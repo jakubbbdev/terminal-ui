@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Question / Discussion
+    url: https://github.com/jakubbbdev/terminal-ui/discussions
+    about: For questions and ideas without a concrete bug/feature ticket
