@@ -72,7 +72,7 @@ public final class Confirm {
     }
 
     /**
-     * Uses the given scanner for one line. Use when sharing one scanner (e.g. demo).
+     * Uses the given scanner for one line. Use when sharing one scanner (e.g. interactive app).
      */
     public boolean ask(Scanner sharedScanner) {
         if (sharedScanner == null) return ask();

@@ -1,0 +1,9 @@
+# Normalize line endings
+* text=auto eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# GitHub linguist: don't count these as language
+gradle/wrapper/gradle-wrapper.jar binary
+*.jar binary
+*.zip binary

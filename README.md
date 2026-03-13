@@ -3,6 +3,10 @@
 Java library for terminal UI: tables, rules, colors, prompts, menus, SelectList, pager, and more. Fluent API, ANSI support, testable.
 
 [![CI](https://github.com/jakubbbdev/terminal-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/jakubbbdev/terminal-ui/actions/workflows/ci.yml)
+[![Java 21](https://img.shields.io/badge/Java-21-ED8B00?logo=openjdk)](https://openjdk.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/jakubbbdev/terminal-ui)
 
 ## Requirements
 
@@ -19,18 +23,6 @@ Run tests:
 
 ```bash
 ./gradlew test
-```
-
-Demo (non-interactive):
-
-```bash
-./gradlew run
-```
-
-Interactive demo (best run in a real terminal):
-
-```bash
-./gradlew runDemo2
 ```
 
 ## Usage (excerpt)

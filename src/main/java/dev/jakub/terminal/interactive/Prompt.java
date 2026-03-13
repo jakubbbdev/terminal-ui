@@ -64,7 +64,7 @@ public final class Prompt {
 
     /**
      * Prompts and returns the next line from the given scanner. Use this when
-     * sharing one scanner (e.g. in a demo) so input blocks correctly.
+     * sharing one scanner (e.g. in an interactive app) so input blocks correctly.
      */
     public String ask(Scanner sharedScanner) {
         if (sharedScanner == null) return ask();
