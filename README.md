@@ -9,11 +9,7 @@ Java library for terminal UI: tables, rules, colors, prompts, menus, SelectList,
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/jakubbbdev/terminal-ui)
 
-**First time here?** → [NEXT_STEPS.md](NEXT_STEPS.md) has a short checklist (Pages, topics, release).
-
 ## Install
-
-Published to [GitHub Packages](https://github.com/jakubbbdev/terminal-ui/packages). Replace `VERSION` with a [release](https://github.com/jakubbbdev/terminal-ui/releases) tag (e.g. `1.0.0`).
 
 **Gradle (Kotlin DSL):**
 
@@ -52,8 +48,6 @@ dependencies {
   <version>VERSION</version>
 </dependency>
 ```
-
-For public packages, read access usually works without credentials. If your tool asks for auth, use a [GitHub PAT](https://github.com/settings/tokens) with `read:packages` as username and the token as password.
 
 ## Requirements
 
@@ -97,12 +91,6 @@ String choice = Terminal.menu()
     .option("Dev").option("Prod")
     .select();
 ```
-
-## Docs & links
-
-- **In-repo docs:** [docs/](docs/) – Home, Install, Components, Examples.
-- **GitHub Pages:** Enable in **Settings → Pages → Source: GitHub Actions** (uses workflow `pages.yml`). Site: `https://jakubbbdev.github.io/terminal-ui/`.
-- **Wiki:** **Settings → Features** → enable **Wiki**; copy content from `docs/` if you like.
 
 ## License
 
