@@ -5,8 +5,11 @@ Java library for terminal UI: tables, rules, colors, prompts, menus, SelectList,
 [![CI](https://github.com/jakubbbdev/terminal-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/jakubbbdev/terminal-ui/actions/workflows/ci.yml)
 [![Java 21](https://img.shields.io/badge/Java-21-ED8B00?logo=openjdk)](https://openjdk.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Latest release](https://img.shields.io/github/v/release/jakubbbdev/terminal-ui)](https://github.com/jakubbbdev/terminal-ui/releases)
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/jakubbbdev/terminal-ui)
+
+**First time here?** → [NEXT_STEPS.md](NEXT_STEPS.md) has a short checklist (Pages, topics, release).
 
 ## Install
 
@@ -94,6 +97,12 @@ String choice = Terminal.menu()
     .option("Dev").option("Prod")
     .select();
 ```
+
+## Docs & links
+
+- **In-repo docs:** [docs/](docs/) – Home, Install, Components, Examples.
+- **GitHub Pages:** Enable in **Settings → Pages → Source: GitHub Actions** (uses workflow `pages.yml`). Site: `https://jakubbbdev.github.io/terminal-ui/`.
+- **Wiki:** **Settings → Features** → enable **Wiki**; copy content from `docs/` if you like.
 
 ## License
 

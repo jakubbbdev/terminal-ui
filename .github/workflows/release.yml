@@ -29,10 +29,15 @@ jobs:
       - name: Strip v from version
         run: echo "RELEASE_VERSION=${RELEASE_VERSION#v}" >> $GITHUB_ENV
 
-      - name: Build and publish to GitHub Packages
-        run: chmod +x gradlew && ./gradlew build publish --no-daemon
+      - name: Build
+        run: chmod +x gradlew && ./gradlew build --no-daemon
+
+      - name: Publish to GitHub Packages
+        run: ./gradlew publish --no-daemon
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+        # 409 = version already exists; use a new tag (e.g. v1.0.2) next time
 
       - name: Create Release
         uses: softprops/action-gh-release@v2

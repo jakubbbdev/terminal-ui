@@ -1,0 +1,53 @@
+# Deploy docs to GitHub Pages (optional)
+# Enable in repo: Settings → Pages → Source: GitHub Actions
+# Site will be at https://jakubbbdev.github.io/terminal-ui/
+
+name: Pages
+
+on:
+  push:
+    branches: [master, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: github-pages
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Build site
+        run: |
+          mkdir -p _site
+          cp -r docs _site/
+          cat > _site/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html><head><meta charset="utf-8"><title>terminal-ui</title></head>
+          <body style="font-family:sans-serif;max-width:600px;margin:2rem auto;padding:0 1rem">
+          <h1>terminal-ui</h1>
+          <p>Java library for terminal UIs: tables, prompts, menus, and more.</p>
+          <ul>
+          <li><a href="https://github.com/jakubbbdev/terminal-ui">GitHub repo</a></li>
+          <li><a href="https://github.com/jakubbbdev/terminal-ui#install">Install (README)</a></li>
+          <li><a href="https://github.com/jakubbbdev/terminal-ui/releases">Releases</a></li>
+          <li><a href="https://github.com/jakubbbdev/terminal-ui/tree/master/docs">Docs (markdown)</a></li>
+          </ul>
+          </body></html>
+          EOF
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
