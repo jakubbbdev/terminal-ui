@@ -61,5 +61,15 @@ public final class Ansi {
     /** Clear line */
     public static final String ERASE_LINE = "\u001B[2K";
 
+    /** Clear entire screen and move cursor to home (1,1) */
+    public static final String CLEAR_SCREEN = "\u001B[H\u001B[2J";
+
+    /**
+     * Cursor position (1-based row and column). ESC [ row ; col H
+     */
+    public static String cursorTo(int row, int col) {
+        return "\u001B[" + Math.max(1, row) + ";" + Math.max(1, col) + "H";
+    }
+
     private Ansi() {}
 }

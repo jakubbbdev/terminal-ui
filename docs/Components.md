@@ -26,11 +26,12 @@ Overview of what terminal-ui provides. All entry points are on `Terminal.*`.
 
 | API | Description |
 |-----|-------------|
-| `Terminal.prompt(String)` | Text input (`.ask()`, `.masked().ask()`) |
+| `Terminal.prompt(String)` | Text input (`.ask()`, `.masked().ask()`, `.validate(Predicate).retryMessage(String)`) |
 | `Terminal.confirm(String)` | Y/n confirmation |
 | `Terminal.menu()` | Numbered menu (`.option()`, `.select()`) |
 | `Terminal.selectList()` | List with arrow keys + Enter |
 | `Terminal.pager()` | Paged output (Enter/arrows/q) |
+| `Terminal.help()` | CLI usage block (`.option(opt, desc)`, `.title()`) |
 
 ## Live / progress
 
@@ -49,6 +50,13 @@ Overview of what terminal-ui provides. All entry points are on `Terminal.*`.
 | `Terminal.timeline()` | Timeline |
 | `Terminal.heatmap()` | Heatmap |
 | `Terminal.chart()` | Charts |
+
+## Terminal control (ANSI)
+
+| API | Description |
+|-----|-------------|
+| `Terminal.clearScreen()` | Clear entire screen |
+| `Terminal.cursorTo(row, col)` | Move cursor (1-based) |
 
 ## Other
 

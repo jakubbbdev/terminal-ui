@@ -24,6 +24,7 @@ public final class Examples {
         columns();
         steps();
         breadcrumb();
+        helpBlock();
         log();
         logWithMinLevel();
         diff();
@@ -124,6 +125,17 @@ public final class Examples {
                 .crumb("Projects")
                 .crumb("terminal-ui")
                 .separator(" / ")
+                .print(System.out);
+        System.out.println();
+    }
+
+    static void helpBlock() {
+        Terminal.print("=== Help (CLI usage) ===").color(Color.CYAN).bold().println();
+        Terminal.help()
+                .title("Options")
+                .option("-v, --verbose", "Enable verbose output")
+                .option("-h, --help", "Show this help")
+                .option("--file <path>", "Input file path")
                 .print(System.out);
         System.out.println();
     }

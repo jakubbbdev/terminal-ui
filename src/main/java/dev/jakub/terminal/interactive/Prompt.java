@@ -6,6 +6,7 @@ import dev.jakub.terminal.core.TerminalSupport;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
+import java.util.function.Predicate;
 
 /**
  * Input prompt for reading user input. Use via {@link Terminal#prompt(String)}.
@@ -18,6 +19,8 @@ public final class Prompt {
     private boolean masked;
     private PrintStream out = System.out;
     private InputStream in = System.in;
+    private Predicate<String> validator;
+    private String retryMessage = "Invalid, try again: ";
 
     public Prompt(String message, TerminalSupport support) {
         this.message = message != null ? message : "";
@@ -49,32 +52,61 @@ public final class Prompt {
     }
 
     /**
+     * Validates input: asks again until the predicate returns true. Null = no validation.
+     */
+    public Prompt validate(Predicate<String> validator) {
+        this.validator = validator;
+        return this;
+    }
+
+    /**
+     * Message shown when validation fails (default: "Invalid, try again: ").
+     */
+    public Prompt retryMessage(String retryMessage) {
+        this.retryMessage = retryMessage != null ? retryMessage : "Invalid, try again: ";
+        return this;
+    }
+
+    /**
      * Prompts and returns the entered string. Blocks until a line is read.
+     * If {@link #validate(Predicate)} is set, repeats until the predicate accepts the input.
      */
     public String ask() {
-        out.print(message);
-        out.flush();
         if (masked) {
             return readMasked();
         }
         try (Scanner scan = new Scanner(in)) {
-            return scan.hasNextLine() ? scan.nextLine() : "";
+            return askLoop(scan);
         }
     }
 
     /**
      * Prompts and returns the next line from the given scanner. Use this when
      * sharing one scanner (e.g. in an interactive app) so input blocks correctly.
+     * If {@link #validate(Predicate)} is set, repeats until the predicate accepts the input.
      */
     public String ask(Scanner sharedScanner) {
         if (sharedScanner == null) return ask();
-        out.print(message);
-        out.flush();
         if (masked && System.console() != null) {
+            out.print(message);
+            out.flush();
             char[] chars = System.console().readPassword();
             return chars != null ? new String(chars) : "";
         }
-        return sharedScanner.hasNextLine() ? sharedScanner.nextLine() : "";
+        return askLoop(sharedScanner);
+    }
+
+    private String askLoop(Scanner scan) {
+        while (true) {
+            out.print(message);
+            out.flush();
+            if (!scan.hasNextLine()) return "";
+            String line = scan.nextLine();
+            if (line == null) line = "";
+            if (validator == null || validator.test(line)) return line;
+            out.print(retryMessage);
+            out.flush();
+        }
     }
 
     private String readMasked() {

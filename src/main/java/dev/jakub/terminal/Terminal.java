@@ -205,6 +205,27 @@ public final class Terminal {
         return new Pager(DEFAULT.getSupport());
     }
 
+    /** Returns a help/usage builder for CLI --help output. */
+    public static Help help() {
+        return new Help(DEFAULT.getSupport());
+    }
+
+    /** Clears the terminal screen (ANSI). No-op if ANSI is disabled. */
+    public static void clearScreen() {
+        if (DEFAULT.getSupport().isAnsiEnabled()) {
+            System.out.print(dev.jakub.terminal.core.Ansi.CLEAR_SCREEN);
+            System.out.flush();
+        }
+    }
+
+    /** Moves the cursor to the given 1-based row and column (ANSI). No-op if ANSI is disabled. */
+    public static void cursorTo(int row, int col) {
+        if (DEFAULT.getSupport().isAnsiEnabled()) {
+            System.out.print(dev.jakub.terminal.core.Ansi.cursorTo(row, col));
+            System.out.flush();
+        }
+    }
+
     TerminalSupport getSupport() {
         return support;
     }

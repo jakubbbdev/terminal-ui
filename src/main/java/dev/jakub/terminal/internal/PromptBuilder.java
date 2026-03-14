@@ -7,6 +7,7 @@ import dev.jakub.terminal.interactive.Prompt;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
+import java.util.function.Predicate;
 
 /**
  * Fluent builder for {@link Prompt}. Use via {@link Terminal#prompt(String)}.
@@ -19,6 +20,8 @@ public final class PromptBuilder {
     private boolean masked;
     private PrintStream output = System.out;
     private InputStream input = System.in;
+    private Predicate<String> validator;
+    private String retryMessage = "Invalid, try again: ";
 
     public PromptBuilder(String message, TerminalSupport support) {
         this.message = message != null ? message : "";
@@ -50,13 +53,26 @@ public final class PromptBuilder {
     }
 
     /**
+     * Validates input: prompts again until the predicate returns true. Null = no validation.
+     */
+    public PromptBuilder validate(Predicate<String> validator) {
+        this.validator = validator;
+        return this;
+    }
+
+    /**
+     * Message shown when validation fails (default: "Invalid, try again: ").
+     */
+    public PromptBuilder retryMessage(String retryMessage) {
+        this.retryMessage = retryMessage != null ? retryMessage : "Invalid, try again: ";
+        return this;
+    }
+
+    /**
      * Prompts and returns the entered string.
      */
     public String ask() {
-        Prompt p = new Prompt(message, support);
-        if (masked) p.masked();
-        p.output(output);
-        p.input(input);
+        Prompt p = buildPrompt();
         return p.ask();
     }
 
@@ -66,10 +82,17 @@ public final class PromptBuilder {
      */
     public String ask(Scanner sharedScanner) {
         if (sharedScanner == null) return ask();
+        Prompt p = buildPrompt();
+        return p.ask(sharedScanner);
+    }
+
+    private Prompt buildPrompt() {
         Prompt p = new Prompt(message, support);
         if (masked) p.masked();
         p.output(output);
         p.input(input);
-        return p.ask(sharedScanner);
+        if (validator != null) p.validate(validator);
+        p.retryMessage(retryMessage);
+        return p;
     }
 }

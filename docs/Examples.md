@@ -108,6 +108,13 @@ String name = Terminal.prompt("Name: ").ask();
 String secret = Terminal.prompt("Password: ").masked().ask();
 // With shared scanner (e.g. in a loop):
 String line = Terminal.prompt("Input: ").ask(sharedScanner);
+
+// With validation (asks again until input matches):
+String age = Terminal.prompt("Age: ").validate(s -> s.matches("\\d+")).ask();
+String email = Terminal.prompt("Email: ")
+    .validate(s -> s.contains("@"))
+    .retryMessage("Invalid email, try again: ")
+    .ask();
 ```
 
 ## Interactive: Confirm
@@ -258,6 +265,26 @@ Terminal.code("java")
     .lineNumbers()
     .print(System.out);
 ```
+
+## Help (CLI usage)
+
+```java
+Terminal.help()
+    .title("Options")
+    .option("-v, --verbose", "Enable verbose output")
+    .option("-h, --help", "Show this help")
+    .option("--file <path>", "Input file path")
+    .print(System.out);
+```
+
+## Clear screen & cursor
+
+```java
+Terminal.clearScreen();       // Clear terminal (ANSI)
+Terminal.cursorTo(1, 1);      // Move cursor to row 1, col 1 (1-based)
+```
+
+No-op when ANSI is disabled.
 
 ## SysInfo
 
