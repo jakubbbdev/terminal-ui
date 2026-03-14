@@ -37,6 +37,21 @@ Terminal.table()
     .row("1", "2", "3")
     .row("4", "5", "6")
     .print(System.out);
+
+// From a list of rows (e.g. from CSV or DB)
+List<String[]> rows = List.of(
+    new String[]{"Alice", "10"},
+    new String[]{"Bob", "20"}
+);
+Terminal.table()
+    .header("Name", "Score")
+    .rows(rows)
+    .print(System.out);
+
+// One-liner with header + data
+Terminal.table()
+    .fromRows(new String[]{"A", "B"}, List.of(new String[]{"1", "2"}, new String[]{"3", "4"}))
+    .print(System.out);
 ```
 
 ## Tree
@@ -178,7 +193,17 @@ Terminal.log()
     .error("Something failed")
     .withTimestamp()
     .print(System.out);
+
+// Only WARN and ERROR (e.g. for production)
+Terminal.log()
+    .info("Hidden")
+    .warn("Visible")
+    .error("Visible")
+    .minLevel(Log.Level.WARN)
+    .print(System.out);
 ```
+
+(Use `import dev.jakub.terminal.components.Log;` for `Log.Level`.)
 
 ## Timeline
 

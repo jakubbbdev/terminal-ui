@@ -22,6 +22,7 @@ public final class Log {
     private final TerminalSupport support;
     private final List<Entry> entries = new ArrayList<>();
     private boolean withTimestamp;
+    private Level minLevel;
 
     public Log(TerminalSupport support) {
         this.support = support;
@@ -68,11 +69,21 @@ public final class Log {
     }
 
     /**
-     * Prints all log entries to the given stream.
+     * Only print entries at this level or higher (e.g. WARN shows WARN and ERROR).
+     * Useful for "quiet" mode or production.
+     */
+    public Log minLevel(Level level) {
+        this.minLevel = level;
+        return this;
+    }
+
+    /**
+     * Prints log entries to the given stream (respects minLevel if set).
      */
     public void print(PrintStream out) {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH:mm:ss").withZone(ZoneId.systemDefault());
         for (Entry e : entries) {
+            if (minLevel != null && e.level.ordinal() < minLevel.ordinal()) continue;
             String prefix = withTimestamp ? "[" + fmt.format(Instant.now()) + "] " : "";
             String label = "[" + e.level.name() + "]";
             while (label.length() < LABEL_WIDTH) label += " ";
@@ -104,11 +115,14 @@ public final class Log {
         }
     }
 
-    private enum Level {
+    /**
+     * Log level for filtering. Order: DEBUG &lt; INFO &lt; WARN &lt; ERROR.
+     */
+    public enum Level {
+        DEBUG(Ansi.FG_BRIGHT_BLACK),
         INFO(Ansi.FG_CYAN),
         WARN(Ansi.FG_YELLOW),
-        ERROR(Ansi.FG_RED),
-        DEBUG(Ansi.FG_BRIGHT_BLACK);
+        ERROR(Ansi.FG_RED);
 
         final String ansi;
 

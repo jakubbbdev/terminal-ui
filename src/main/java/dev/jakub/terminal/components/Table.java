@@ -48,6 +48,26 @@ public final class Table {
     }
 
     /**
+     * Adds many rows from a list of arrays (e.g. from CSV or a list of records).
+     * Each array is one row; null cells are treated as empty string.
+     */
+    public Table rows(Iterable<String[]> dataRows) {
+        if (dataRows == null) return this;
+        for (String[] cells : dataRows) {
+            if (cells != null) row(cells);
+        }
+        return this;
+    }
+
+    /**
+     * Builds a table from a header and a list of row arrays in one call.
+     */
+    public Table fromRows(String[] headerRow, Iterable<String[]> dataRows) {
+        if (headerRow != null && headerRow.length > 0) header(headerRow);
+        return rows(dataRows);
+    }
+
+    /**
      * Prints the table to the given stream.
      */
     public void print(PrintStream out) {

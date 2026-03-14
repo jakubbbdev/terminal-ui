@@ -5,6 +5,10 @@ plugins {
     id("maven-publish")
 }
 
+application {
+    mainClass.set("dev.jakub.terminal.example.Examples")
+}
+
 tasks.named<JavaExec>("run") {
     jvmArgs("-Ddev.jakub.terminal.ansi=true", "-Dfile.encoding=UTF-8")
 }
